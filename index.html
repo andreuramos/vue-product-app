@@ -10,52 +10,10 @@
 	<div class="nav-bar"></div>
 
 	<div id="app">
-		<div class="product">
-			<div class="product-image">
-				<img v-bind:src="image">
-			</div>
-
-			<div class="product-info">
-				<h1>{{ title }}</h1>
-				<p>{{ product.description }}</p>
-				<p v-if="product.inventory > 10">In stock</p>
-				<p v-else-if="product.inventory <= 10 && product.inventory > 0">Almost out of stock</p>
-				<p v-else
-					:class="{ outOfStock:product.inventory <= 0 }">Out of stock</p>
-				<a :href="product.url">More info</a>
-				<span v-show="onSale">On Sale ! </span>
-
-				<ul>
-					<li v-for="detail in product.details">{{ detail }}</li>
-				</ul>
-				<div v-for="(variant, index) in product.variants"
-					:key="variant.variantId"
-					class="color-box"
-					:style="{ backgroundColor: variant.variantColor }"
-					@mouseover="updateProduct(index)">
-				</div>
-
-				<h2>Sizes</h2>
-				<ul>
-					<li v-for="size in product.sizes">
-						{{ size }}
-					</li>
-				</ul>
-
-			</div>
-			<button 
-				v-on:click="addToCart"
-				:disabled="!inStock"
-				:class="{ disabledButton: !inStock }"
-				>Add to Cart</button>
-			<div class="cart">
-				<p>Cart ({{ cart }})</p>
-			</div>
-			<button v-on:click="removeFromCart">Remove</button>
-		</div>
+		<product :premium="premium"></product>
 	</div>
 
-	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script src="main.js"></script>
 </body>
 </html>
