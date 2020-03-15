@@ -6,9 +6,8 @@ var app = new Vue({
 			name: 'Socks',
 			description: 'Red socks',
 			url: 'socks.com',
-			image: './assets/vmSocks-green.jpg',
+			selectedVariant: 0,
 			inventory: 100,
-			onSale: true,
 			details: [
 				"80% cotton",
 				"20% polyester",
@@ -18,12 +17,16 @@ var app = new Vue({
 				{
 					variantId: 2234,
 					variantColor: "green",
-					variantImage: './assets/vmSocks-green.jpg'
+					variantImage: './assets/vmSocks-green.jpg',
+					variantQuantity: 9,
+					variantOnSale: false
 				},
 				{
 					variantId: 2235,
 					variantColor: "blue",
-					variantImage: './assets/vmSocks-blue.jpg'
+					variantImage: './assets/vmSocks-blue.jpg',
+					variantQuantity: 0,
+					variantOnSale: true
 				}
 			],
 			sizes: [
@@ -36,8 +39,8 @@ var app = new Vue({
 		addToCart() {
 			this.cart +=1
 		},
-		updateProduct(variant) {
-			this.product.image = variant.variantImage
+		updateProduct(index) {
+			this.product.selectedVariant = index
 		},
 		removeFromCart() {
 			if (this.cart > 0)
@@ -47,6 +50,15 @@ var app = new Vue({
 	computed: {
 		title() {
 			return this.product.brand + ' ' + this.product.name
+		},
+		image () {
+			return this.product.variants[this.product.selectedVariant].variantImage
+		},
+		inStock() {
+			return this.product.variants[this.product.selectedVariant].variantQuantity
+		},
+		onSale() {
+			return this.product.variants[this.product.selectedVariant].variantOnSale
 		}
 	}
 })
