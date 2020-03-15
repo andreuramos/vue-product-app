@@ -4,8 +4,10 @@ var app = new Vue({
 		product: {
 			name: 'Socks',
 			description: 'Red socks',
-			url: 'socks.com'
-		},
-		image: './assets/vmSocks-green.jpg'
+			url: 'socks.com',
+			image: './assets/vmSocks-green.jpg',
+			inventory: 100,
+			onSale: true
+		}
 	}
 })
