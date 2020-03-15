@@ -2,6 +2,7 @@ var app = new Vue({
 	el: '#app',
 	data: {
 		product: {
+			brand: 'Vue Mastery',
 			name: 'Socks',
 			description: 'Red socks',
 			url: 'socks.com',
@@ -41,6 +42,11 @@ var app = new Vue({
 		removeFromCart() {
 			if (this.cart > 0)
 				this.cart -= 1
+		}
+	},
+	computed: {
+		title() {
+			return this.product.brand + ' ' + this.product.name
 		}
 	}
 })
