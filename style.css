@@ -78,6 +78,10 @@
     height: 60px;
   }
 
+  .outOfStock {
+    text-decoration: line-through;
+  }
+
   .tab {
     margin-left: 20px;
     cursor: pointer;
