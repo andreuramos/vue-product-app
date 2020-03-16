@@ -56,9 +56,7 @@ Vue.component('product', {
 				:disabled="!inStock"
 				:class="{ disabledButton: !inStock }"
 				>Add to Cart</button>
-			<div class="cart">
-				<p>Cart ({{ cart }})</p>
-			</div>
+
 			<button v-on:click="removeFromCart">Remove</button>
 		</div>
 	`,
@@ -87,26 +85,30 @@ Vue.component('product', {
 					variantId: 2235,
 					variantColor: "blue",
 					variantImage: './assets/vmSocks-blue.jpg',
-					variantQuantity: 0,
+					variantQuantity: 11,
 					variantOnSale: true
 				}
 			],
 			sizes: [
 				"XS", "S", "M", "L", "XL"
-			],
-			cart: 0
+			]
 		}
 	},
 	methods: {
 		addToCart() {
-			this.cart +=1
+			this.$emit('add-to-cart', {
+				variantId: this.variants[this.selectedVariant].variantId,
+				action: 'add'
+			})
 		},
 		updateProduct(index) {
 			this.selectedVariant = index
 		},
 		removeFromCart() {
-			if (this.cart > 0)
-				this.cart -= 1
+			this.$emit('remove-from-cart', {
+				variantId: this.variants[this.selectedVariant].variantId,
+				action: 'remove'
+			})
 		}
 	},
 	computed: {
@@ -133,6 +135,18 @@ Vue.component('product', {
 var app = new Vue({
 	el: '#app',
 	data: {
-		premium: false
+		premium: false,
+		cart:  []
+	},
+	methods: {
+		updateCart(event) {
+			if (event.action == 'add') {
+				this.cart.push(event.variantId)
+			} else {
+				if (this.cart.indexOf(event.variantId) >= 0) {
+					this.cart.splice(this.cart.indexOf(event.variantId), 1)
+				}
+			}
+		}
 	}
 })
